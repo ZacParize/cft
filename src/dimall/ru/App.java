@@ -21,16 +21,11 @@ public class App {
             Broker broker = new InformationBroker(new InformationQueue());
             //не будем себя ограничивать
             ExecutorService threadPool = Executors.newCachedThreadPool();
-            threadPool.submit(new Producer("Producer1", "1", broker));
-            threadPool.submit(new Producer("Producer2", "2", broker));
-            threadPool.submit(new Producer("Producer3", "3", broker));
-            threadPool.submit(new Producer("Producer4", "4", broker));
-            threadPool.submit(new Producer("Producer5", "5", broker));
-            threadPool.submit(new Consumer("Consumer1", "1", broker));
-            threadPool.submit(new Consumer("Consumer2", "2", broker));
-            threadPool.submit(new Consumer("Consumer3", "3", broker));
-            threadPool.submit(new Consumer("Consumer4", "4", broker));
-            threadPool.submit(new Consumer("Consumer5", "5", broker));
+            final int threadCount = 5;
+            //плодим производителей
+            for (int idx = 1; idx <= threadCount; idx++) threadPool.submit(new Producer("Producer" + String.valueOf(idx), String.valueOf(idx), broker));
+            //плодим потребителей
+            for (int idx = 1; idx <= threadCount; idx++) threadPool.submit(new Consumer("Consumer" + String.valueOf(idx), String.valueOf(idx), broker));
             Thread.sleep(10000);
             //завершаем обработчики
             broker.setStop(true);
