@@ -70,7 +70,7 @@ public class Message implements Information {
 
     /**
      * получить содержимое сообщения
-     * @return
+     * @return содержимое сообщения
      */
     @Override
     public String getMessage() {
