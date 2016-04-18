@@ -23,9 +23,9 @@ public class App {
             ExecutorService threadPool = Executors.newCachedThreadPool();
             final int threadCount = 5;
             //плодим производителей
-            for (int idx = 1; idx <= threadCount; idx++) threadPool.submit(new Producer("Producer" + String.valueOf(idx), String.valueOf(idx), broker));
+            for (int idx = 1; idx <= threadCount; idx++) threadPool.execute(new Producer("Producer" + String.valueOf(idx), String.valueOf(idx), broker));
             //плодим потребителей
-            for (int idx = 1; idx <= threadCount; idx++) threadPool.submit(new Consumer("Consumer" + String.valueOf(idx), String.valueOf(idx), broker));
+            for (int idx = 1; idx <= threadCount; idx++) threadPool.execute(new Consumer("Consumer" + String.valueOf(idx), String.valueOf(idx), broker));
             Thread.sleep(10000);
             //завершаем обработчики
             broker.setStop(true);
